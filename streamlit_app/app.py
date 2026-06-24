@@ -5,7 +5,7 @@ import joblib
 # Page Config
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
 
-# Load Model
+# Load Model (Yeh app.py ke saath hi hai, toh load ho jayega)
 model = joblib.load('churn_model.pkl')
 
 st.title("📊 Customer Churn Prediction Dashboard")
@@ -14,12 +14,14 @@ tab1, tab2, tab3 = st.tabs(["📊 Performance", "📉 Drivers", "🧪 Live Test"
 
 with tab1:
     st.subheader("Model Performance")
-    st.image("aoc.png", use_container_width=True)
+    # Path updated with 'images1/'
+    st.image("images1/aoc.png", use_container_width=True)
     st.write("**Model Accuracy:** 85% | **AUC Score:** 0.98")
 
 with tab2:
     st.subheader("Key Drivers")
-    st.image("driversc.png", use_container_width=True)
+    # Path updated with 'images1/'
+    st.image("images1/driversc.png", use_container_width=True)
 
 with tab3:
     st.subheader("🧪 Live Test")
