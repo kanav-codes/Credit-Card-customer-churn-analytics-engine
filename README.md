@@ -57,9 +57,12 @@ To bridge the gap between technical modeling and business accessibility, I have 
 
 ## 🔗 Live Insights & Feedback
 [🚀 View Interactive Portfolio & Chat with AI Assistant](INSERT_YOUR_CARRD_LINK_HERE)
+
 **Access the Live App:** [https://credit-card-customer-churn-analytics-engine-43zmqrhu8ysrkqtixz.streamlit.app/]
+
 **Access the My AI Chatbot Here:[https://creator.voiceflow.com/share/6a3bf0cb8ec1b1de6273cb98/environment/main/published]
-*Feedback is highly appreciated! Feel free to share your thoughts through my [feedback portal]([(https://tally.so/r/1AOeMW)]).*
+
+*Feedback is highly appreciated! Feel free to share your thoughts through my [feedback portal][(https://tally.so/r/1AOeMW)].*
 
 ---
 *Created by [Kanav Bansal]*
