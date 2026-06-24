@@ -44,9 +44,21 @@ I integrated three analytical enhancements to ensure the model delivers tangible
 * **Libraries**: Pandas, NumPy, Seaborn, Matplotlib, Scikit-Learn
 * **Models**: RandomForestClassifier, KMeans Clustering
 
+## 🚀 Deployment & Live Application
+To bridge the gap between technical modeling and business accessibility, I have deployed this solution as an interactive web application.
+
+- **Interactive Interface:** Built using **Streamlit**, allowing stakeholders to perform live churn predictions by inputting customer parameters.
+- **Model Integration:** Used `joblib` for seamless model serialization, ensuring the trained **Random Forest Classifier** is accessible for real-time inference within the dashboard.
+- **Dynamic Insights:** The app provides instant visualization of churn risks, allowing for rapid decision-making without requiring coding expertise.
+
+
+
+---
+
 ## 🔗 Live Insights & Feedback
 [🚀 View Interactive Portfolio & Chat with AI Assistant](INSERT_YOUR_CARRD_LINK_HERE)
-
+**Access the Live App:** [Link your Streamlit Cloud App URL here]
+**Access the My AI Chatbot Here:[https://creator.voiceflow.com/share/6a3bf0cb8ec1b1de6273cb98/environment/main/published]
 *Feedback is highly appreciated! Feel free to share your thoughts through my [feedback portal](INSERT_YOUR_TALLY_LINK_HERE).*
 
 ---
