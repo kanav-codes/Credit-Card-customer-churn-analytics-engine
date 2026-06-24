@@ -3,6 +3,10 @@
 ## 📌 Overview
 This project delivers a comprehensive, end-to-end data science solution to identify customer churn, quantify financial risk, and deploy targeted retention strategies. By bridging the gap between raw machine learning metrics and business operations, this pipeline transforms data into actionable revenue-saving decisions.
 
+## 📂 Dataset
+The dataset used for this project is [(https://www.kaggle.com/code/josh1337/bankchurners?scriptVersionId=86290999)]
+A processed copy is available in the `data/` folder of this repository.
+
 ## 🛠 Project Workflow
 * **Data Foundation**: Rigorous data cleaning (handling nulls, outliers) and feature engineering using `StandardScaler` to ensure robust model performance.
 * **Exploratory Data Analysis (EDA)**: Performed multi-variate analysis to uncover hidden correlations between usage patterns, tenure, and churn probability.
