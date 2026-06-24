@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import joblib
@@ -5,8 +6,8 @@ import joblib
 # Page Config
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
 
-# Load Model (Yeh app.py ke saath hi hai, toh load ho jayega)
-model = joblib.load('churn_model.pkl')
+# FIX: Model file 'streamlit_app' folder ke andar hi hai, toh direct load ho jayegi
+model = joblib.load('churn_model.pkl') 
 
 st.title("📊 Customer Churn Prediction Dashboard")
 
@@ -14,14 +15,14 @@ tab1, tab2, tab3 = st.tabs(["📊 Performance", "📉 Drivers", "🧪 Live Test"
 
 with tab1:
     st.subheader("Model Performance")
-    # Path updated with 'images1/'
+    # Images 'images1' folder mein hain jo 'streamlit_app' ke andar hi hai
     st.image("images1/aoc.png", use_container_width=True)
     st.write("**Model Accuracy:** 85% | **AUC Score:** 0.98")
 
 with tab2:
     st.subheader("Key Drivers")
-    # Path updated with 'images1/'
     st.image("images1/driversc.png", use_container_width=True)
+
 
 with tab3:
     st.subheader("🧪 Live Test")
