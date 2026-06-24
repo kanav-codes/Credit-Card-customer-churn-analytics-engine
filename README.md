@@ -50,4 +50,4 @@ I integrated three analytical enhancements to ensure the model delivers tangible
 *Feedback is highly appreciated! Feel free to share your thoughts through my [feedback portal](INSERT_YOUR_TALLY_LINK_HERE).*
 
 ---
-*Created by [Tera Naam]*
+*Created by [Kanav Bansal]*
