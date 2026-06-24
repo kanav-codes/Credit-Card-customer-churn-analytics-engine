@@ -32,7 +32,8 @@ I integrated three analytical enhancements to ensure the model delivers tangible
 *(Note: Replace these image links with your actual image file paths in the repo)*
 - **Top 10 Churn Drivers:** ![Drivers](images/driversc.png)
 - **Optimal Segmentation (Elbow Method):** ![Elbow](images/elbowc.png)
-- **Churn Risk Clustering:** ![Clusters](images/download1.png)
+- **Churn Risk Clustering:**
+- ![Clusters](images/download1.png)
 
 ## 🛠 Tech Stack
 * **Language**: Python
