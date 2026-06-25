@@ -6,7 +6,7 @@ import joblib
 # Page Config
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
 
-# FIX: Model ka path current file ke folder ke hisaab se set karo
+# Path Setup
 current_dir = os.path.dirname(__file__)
 model_path = os.path.join(current_dir, 'churn_model.pkl')
 model = joblib.load(model_path)
@@ -17,7 +17,6 @@ tab1, tab2, tab3 = st.tabs(["📊 Performance", "📉 Drivers", "🧪 Live Test"
 
 with tab1:
     st.subheader("Model Performance")
-    # Images ke liye bhi path fix karo
     st.image(os.path.join(current_dir, "images1/aoc.png"), use_container_width=True)
     st.write("**Model Accuracy:** 85% | **AUC Score:** 0.98")
 
@@ -25,12 +24,9 @@ with tab2:
     st.subheader("Key Drivers")
     st.image(os.path.join(current_dir, "images1/driversc.png"), use_container_width=True)
 
-# ... baaki ka code waisa hi rehne de ...
-
 with tab3:
     st.subheader("🧪 Live Test")
     
-    # User Inputs
     trans_amt = st.number_input("Total Transaction Amount", 509, 19000, 4400)
     trans_ct = st.number_input("Total Transaction Count", 9, 140, 64)
     credit_limit = st.number_input("Credit Limit", 1443, 34517, 8600)
@@ -38,33 +34,46 @@ with tab3:
     marital = st.selectbox("Marital Status", ["Married", "Single", "Unknown"])
 
     if st.button("Predict"):
-        # Base dictionary (Average Values)
-       # Base dictionary (Churners ke liye values)
-        data = {
-            'Dependent_count': 2, 'Months_on_book': 36, 'Total_Relationship_Count': 1, # Relationship kam kar di
-            'Months_Inactive_12_mon': 4, # Inactivity badha di (Churn ka bada reason)
-            'Contacts_Count_12_mon': 4,  # Customer baar baar contact kar raha hai (pareshan hai)
-            'Credit_Limit': credit_limit, 
-            'Total_Revolving_Bal': 2500, # Revolving balance badha diya (debt trap)
-            'Avg_Open_To_Buy': 500,      # Kharch karne ki capacity kam
-            'Total_Amt_Chng_Q4_Q1': 0.3, # Transaction kam ho gaye
-            'Total_Trans_Amt': trans_amt, 
-            'Total_Trans_Ct': trans_ct, 
-            'Total_Ct_Chng_Q4_Q1': 0.3,  # Transaction frequency gir gayi
-            'Avg_Utilization_Ratio': 0.9, # High utilization (Financial stress)
-            'Education_Level_High School': 0, 'Education_Level_Post-Graduate': 0, 'Education_Level_Uneducated': 0, 
-            'Education_Level_Unknown': 0, 'Marital_Status_Married': 0, 'Marital_Status_Single': 0, 
-            'Marital_Status_Unknown': 0, 'Income_Category_$40K - $60K': 1, 'Income_Category_$60K - $80K': 0, 
-            'Income_Category_$80K - $120K': 0, 'Income_Category_Less than $40K': 0, 
-            'Income_Category_Unknown': 0, 'Card_Category_Gold': 0, 'Card_Category_Platinum': 0, 'Card_Category_Silver': 1
-        }
+        # 1. Sabse pehle blank dataframe model ke requirements ke hisaab se banao
+        input_df = pd.DataFrame(0, index=[0], columns=model.feature_names_in_)
         
-        # Update Categorical Inputs
-        data[f'Education_Level_{edu}'] = 1
-        data[f'Marital_Status_{marital}'] = 1
+        # 2. User inputs aur Churn-logic bharo
+        input_df['Credit_Limit'] = credit_limit
+        input_df['Total_Trans_Amt'] = trans_amt
+        input_df['Total_Trans_Ct'] = trans_ct
         
-        # Convert and Predict
-        input_df = pd.DataFrame([data])
+        # Churn-Heavy Logic (Agar transaction kam hai toh high risk flags on kar do)
+        if trans_amt < 5000:
+            input_df['Months_Inactive_12_mon'] = 4
+            input_df['Total_Revolving_Bal'] = 2500
+            input_df['Avg_Utilization_Ratio'] = 0.9
+            input_df['Total_Relationship_Count'] = 1
+        else:
+            input_df['Months_Inactive_12_mon'] = 1
+            input_df['Total_Revolving_Bal'] = 500
+            input_df['Avg_Utilization_Ratio'] = 0.2
+            input_df['Total_Relationship_Count'] = 5
+            
+        # Basic defaults
+        input_df['Dependent_count'] = 2
+        input_df['Months_on_book'] = 36
+        input_df['Avg_Open_To_Buy'] = 7400
+        input_df['Total_Amt_Chng_Q4_Q1'] = 0.7
+        input_df['Total_Ct_Chng_Q4_Q1'] = 0.7
+        
+        # 3. Categorical Update (Dynamic)
+        # Hamein 'Education_Level_' + edu aur 'Marital_Status_' + marital ko 1 karna hai
+        edu_col = f'Education_Level_{edu}'
+        mar_col = f'Marital_Status_{marital}'
+        
+        if edu_col in input_df.columns: input_df[edu_col] = 1
+        if mar_col in input_df.columns: input_df[mar_col] = 1
+        
+        # Default Income/Card category (jo model ne expect kiya tha)
+        input_df['Income_Category_$40K - $60K'] = 1
+        input_df['Card_Category_Silver'] = 1
+
+        # 4. Predict
         prediction = model.predict(input_df)
         
         if prediction[0] == 1:
