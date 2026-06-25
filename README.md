@@ -56,7 +56,7 @@ To bridge the gap between technical modeling and business accessibility, I have 
 ---
 
 ## 🔗 Live Insights & Feedback
-[🚀 View Interactive Portfolio & Chat with AI Assistant](INSERT_YOUR_CARRD_LINK_HERE)
+[🚀 View Interactive Portfolio & Chat with AI Assistant](https://projectchurnseg.carrd.co/)
 
 **Access the Live App:** [https://credit-card-customer-churn-analytics-engine-43zmqrhu8ysrkqtixz.streamlit.app/]
 
