@@ -39,12 +39,19 @@ with tab3:
 
     if st.button("Predict"):
         # Base dictionary (Average Values)
+       # Base dictionary (Churners ke liye values)
         data = {
-            'Dependent_count': 2, 'Months_on_book': 36, 'Total_Relationship_Count': 4, 
-            'Months_Inactive_12_mon': 2, 'Contacts_Count_12_mon': 2, 'Credit_Limit': credit_limit, 
-            'Total_Revolving_Bal': 1160, 'Avg_Open_To_Buy': 7400, 'Total_Amt_Chng_Q4_Q1': 0.76, 
-            'Total_Trans_Amt': trans_amt, 'Total_Trans_Ct': trans_ct, 'Total_Ct_Chng_Q4_Q1': 0.71, 
-            'Avg_Utilization_Ratio': 0.27, 'Education_Level_Doctorate': 0, 'Education_Level_Graduate': 0, 
+            'Dependent_count': 2, 'Months_on_book': 36, 'Total_Relationship_Count': 1, # Relationship kam kar di
+            'Months_Inactive_12_mon': 4, # Inactivity badha di (Churn ka bada reason)
+            'Contacts_Count_12_mon': 4,  # Customer baar baar contact kar raha hai (pareshan hai)
+            'Credit_Limit': credit_limit, 
+            'Total_Revolving_Bal': 2500, # Revolving balance badha diya (debt trap)
+            'Avg_Open_To_Buy': 500,      # Kharch karne ki capacity kam
+            'Total_Amt_Chng_Q4_Q1': 0.3, # Transaction kam ho gaye
+            'Total_Trans_Amt': trans_amt, 
+            'Total_Trans_Ct': trans_ct, 
+            'Total_Ct_Chng_Q4_Q1': 0.3,  # Transaction frequency gir gayi
+            'Avg_Utilization_Ratio': 0.9, # High utilization (Financial stress)
             'Education_Level_High School': 0, 'Education_Level_Post-Graduate': 0, 'Education_Level_Uneducated': 0, 
             'Education_Level_Unknown': 0, 'Marital_Status_Married': 0, 'Marital_Status_Single': 0, 
             'Marital_Status_Unknown': 0, 'Income_Category_$40K - $60K': 1, 'Income_Category_$60K - $80K': 0, 
