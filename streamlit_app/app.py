@@ -5,6 +5,18 @@ import joblib
 
 # Page Config
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
+# CSS for Responsive Images
+st.markdown(
+    """
+    <style>
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Path Setup
 current_dir = os.path.dirname(__file__)
@@ -34,15 +46,12 @@ with tab3:
     marital = st.selectbox("Marital Status", ["Married", "Single", "Unknown"])
 
     if st.button("Predict"):
-        # 1. Sabse pehle blank dataframe model ke requirements ke hisaab se banao
         input_df = pd.DataFrame(0, index=[0], columns=model.feature_names_in_)
         
-        # 2. User inputs aur Churn-logic bharo
         input_df['Credit_Limit'] = credit_limit
         input_df['Total_Trans_Amt'] = trans_amt
         input_df['Total_Trans_Ct'] = trans_ct
         
-        # Churn-Heavy Logic (Agar transaction kam hai toh high risk flags on kar do)
         if trans_amt < 5000:
             input_df['Months_Inactive_12_mon'] = 4
             input_df['Total_Revolving_Bal'] = 2500
@@ -62,14 +71,13 @@ with tab3:
         input_df['Total_Ct_Chng_Q4_Q1'] = 0.7
         
         # 3. Categorical Update (Dynamic)
-        # Hamein 'Education_Level_' + edu aur 'Marital_Status_' + marital ko 1 karna hai
         edu_col = f'Education_Level_{edu}'
         mar_col = f'Marital_Status_{marital}'
         
         if edu_col in input_df.columns: input_df[edu_col] = 1
         if mar_col in input_df.columns: input_df[mar_col] = 1
         
-        # Default Income/Card category (jo model ne expect kiya tha)
+        # Default Income/Card category 
         input_df['Income_Category_$40K - $60K'] = 1
         input_df['Card_Category_Silver'] = 1
 
