@@ -5,13 +5,15 @@ import joblib
 
 # Page Config
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
-# CSS for Responsive Images
+
+# CSS for Responsive Images (Updated to target Streamlit's internal containers)
 st.markdown(
     """
     <style>
-    img {
-        max-width: 100% !important;
+    [data-testid="stImage"] img {
+        width: 100% !important;
         height: auto !important;
+        max-width: 100% !important;
     }
     </style>
     """,
@@ -46,12 +48,15 @@ with tab3:
     marital = st.selectbox("Marital Status", ["Married", "Single", "Unknown"])
 
     if st.button("Predict"):
+        # Create a clean DataFrame based on model's expected features
         input_df = pd.DataFrame(0, index=[0], columns=model.feature_names_in_)
         
+        # Fill Basic User Inputs
         input_df['Credit_Limit'] = credit_limit
         input_df['Total_Trans_Amt'] = trans_amt
         input_df['Total_Trans_Ct'] = trans_ct
         
+        # Churn Logic (Forces Churn if conditions are met)
         if trans_amt < 5000:
             input_df['Months_Inactive_12_mon'] = 4
             input_df['Total_Revolving_Bal'] = 2500
@@ -63,25 +68,25 @@ with tab3:
             input_df['Avg_Utilization_Ratio'] = 0.2
             input_df['Total_Relationship_Count'] = 5
             
-        # Basic defaults
+        # Basic defaults to ensure model doesn't error out
         input_df['Dependent_count'] = 2
         input_df['Months_on_book'] = 36
         input_df['Avg_Open_To_Buy'] = 7400
         input_df['Total_Amt_Chng_Q4_Q1'] = 0.7
         input_df['Total_Ct_Chng_Q4_Q1'] = 0.7
         
-        # 3. Categorical Update (Dynamic)
+        # Categorical Update
         edu_col = f'Education_Level_{edu}'
         mar_col = f'Marital_Status_{marital}'
         
         if edu_col in input_df.columns: input_df[edu_col] = 1
         if mar_col in input_df.columns: input_df[mar_col] = 1
         
-        # Default Income/Card category 
+        # Income/Card defaults
         input_df['Income_Category_$40K - $60K'] = 1
         input_df['Card_Category_Silver'] = 1
 
-        # 4. Predict
+        # Prediction
         prediction = model.predict(input_df)
         
         if prediction[0] == 1:
